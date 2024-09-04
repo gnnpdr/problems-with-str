@@ -1,30 +1,30 @@
 #include <stdio.h>
 #include <assert.h>
 
-const char* mstrchr(const char* str, char ch);
+int mstrcmp(const char* str1, const char* str2);
 
 int main ()
 {
-    const char* str = "cool";
-    char ch = 'o'; 
-    printf("%p", mstrchr(str, ch));
+    const char* str1 = "cool";
+    const char* str2 = "coold"; 
+    printf("%d", mstrcmp(str1, str2));
 
     return 0;
 }
 
-const char* mstrchr(const char* str, char ch)
+int mstrcmp(const char* str1, const char* str2)
 {
-    assert(str != nullptr);
+    assert(str1 != nullptr);
+    assert(str2 != nullptr);
     int i = 0;
 
     do
     {
-        if (ch == str[i])
+        if (str1[i] != str2[i])
             //printf("the o address %p\n", str[i]);
-            return &str[i];
+            return 1;
+        //printf("check address %d - %p\n", i+1, str1[i]);
         i++;
-        //printf("check address - %p\n", str[i]);
-    }while(str[i] != '\0');
-
-    return NULL;
+    }while(str1[i-1] != '\0');
+    return 0;
 }
