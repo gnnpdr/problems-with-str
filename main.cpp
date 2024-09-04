@@ -1,27 +1,30 @@
 #include <stdio.h>
 #include <assert.h>
 
-int mstrlen(const char* str);
+const char* mstrchr(const char* str, char ch);
 
 int main ()
 {
     const char* str = "cool";
-    printf("%d", mstrlen(str));
+    char ch = 'o'; 
+    printf("%p", mstrchr(str, ch));
 
     return 0;
 }
 
-int mstrlen(const char* str)
+const char* mstrchr(const char* str, char ch)
 {
     assert(str != nullptr);
-
-    int cnt = 0;
     int i = 0;
 
-    while (char ch = str[i] != '\0')
+    do
     {
-        cnt++;
+        if (ch == str[i])
+            //printf("the o address %p\n", str[i]);
+            return &str[i];
         i++;
-    }
-    return cnt;
+        //printf("check address - %p\n", str[i]);
+    }while(str[i] != '\0');
+
+    return NULL;
 }
