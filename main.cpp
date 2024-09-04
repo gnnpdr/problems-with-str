@@ -4,13 +4,14 @@
 
 int strlen(const char* str);
 void strcpy(char* str1, const char* str2);
-void strdup(char** str1, const char* str2);
+bool strdup(char** str1, const char* str2, bool* checker);
 
 int main ()
 {
+    bool checker = true;
     char* str1;
     const char* str2 = "cool"; 
-    strdup(&str1, str2);
+    strdup(&str1, str2, &checker);
     //printf("%s\n", str1);
     free(str1);
     //printf("its free\n");
@@ -49,13 +50,16 @@ void strcpy(char* str1, const char* str2)
     str1[i] = str2[i];
 }
 
-void strdup(char** str1, const char* str2)
+bool strdup(char** str1, const char* str2, bool* checker)
 {
     assert(str1 != nullptr);
     assert(str2 != nullptr);
+
     *str1 = (char*)calloc(strlen(str2)+1, sizeof(char));
+    if (*str1 == nullptr)
+        *checker = false;
+
     strcpy(*str1, str2);
+
+    return *checker;
 }
-
-
-
